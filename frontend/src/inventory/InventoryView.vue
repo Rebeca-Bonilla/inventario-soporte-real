@@ -1,0 +1,24 @@
+<template>
+  <div>
+    <h1>Inventario</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Etiqueta</th>
+          <th>Tipo</th>
+          <th>Marca</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>INV-PC-001</td>
+          <td>Computadora</td>
+          <td>Dell</td>
+          <td>Activo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
