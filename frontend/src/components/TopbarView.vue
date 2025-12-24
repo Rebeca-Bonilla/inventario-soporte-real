@@ -6,10 +6,20 @@ defineEmits(['toggleSidebar'])
 <template>
   <header class="topbar">
     <div class="left">
-      <button v-if="isMobile" class="burger" @click="$emit('toggleSidebar')">☰</button>
-      <span class="logo">Inventario</span>
+      <button
+        v-if="isMobile"
+        class="burger"
+        @click="$emit('toggleSidebar')"
+      >
+        ☰
+      </button>
+
+      <!-- LOGO PLACEHOLDER -->
+      <div class="logo-box">LOGO</div>
+      <span class="title">Inventario</span>
     </div>
 
+    <!-- MENÚ SOLO DESKTOP -->
     <nav v-if="!isMobile" class="menu">
       <RouterLink to="/app/registro">Registro</RouterLink>
       <RouterLink to="/app/inventory">Consulta</RouterLink>
@@ -24,7 +34,7 @@ defineEmits(['toggleSidebar'])
 <style scoped>
 .topbar {
   height: 64px;
-  background: #4f77c9;
+  background: #e11d48;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -38,7 +48,19 @@ defineEmits(['toggleSidebar'])
   gap: 12px;
 }
 
-.logo {
+.logo-box {
+  width: 80px;
+  height: 36px;
+  background: #f8fafc;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.title {
   font-size: 20px;
   font-weight: bold;
 }
@@ -57,14 +79,15 @@ defineEmits(['toggleSidebar'])
 }
 
 .menu a {
-  background: #eaeaea;
-  color: black;
+  background: #fecdd3;
+  color: #111;
   padding: 6px 14px;
-  border-radius: 6px;
+  border-radius: 10px;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .menu a.router-link-active {
-  background: #d0d0d0;
+  background: #fda4af;
 }
 </style>

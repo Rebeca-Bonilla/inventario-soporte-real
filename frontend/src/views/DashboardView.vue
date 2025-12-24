@@ -21,4 +21,12 @@ import StatCard from '../components/StatCard.vue'
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
 }
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-top: 24px;
+}
+
 </style>
