@@ -1,65 +1,55 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const user = ref('')
+const pass = ref('')
+const error = ref('')
+
+const login = () => {
+  if (user.value === 'admin' && pass.value === '1234') {
+    router.push('/app/dashboard')
+  } else {
+    error.value = 'Usuario o contraseña incorrectos'
+  }
+}
+</script>
 <template>
   <div class="login-page">
-    <!-- TOP BAR -->
-    <header class="topbar">
+    <header class="top">
       <div class="logo">LOGO</div>
     </header>
 
-    <!-- LOGIN CARD -->
-    <div class="login-card">
+    <div class="card">
       <div class="avatar"></div>
 
-      <label>Usuario:</label>
-      <input v-model="user" type="text" />
-      <span v-if="errorUser" class="error">Usuario incorrecto</span>
+      <label>Usuario</label>
+      <input v-model="user" />
 
-      <label>Contraseña:</label>
-      <div class="password">
-        <input
-          :type="showPassword ? 'text' : 'password'"
-          v-model="password"
-        />
-        <label class="show">
-          <input type="checkbox" v-model="showPassword" />
-          Visualizar contraseña
-        </label>
-      </div>
-      <span v-if="errorPass" class="error">Contraseña incorrecta</span>
+      <label>Contraseña</label>
+      <input type="password" v-model="pass" />
 
-      <a class="forgot">¿Olvidaste tu contraseña?</a>
+      <span v-if="error" class="error">{{ error }}</span>
 
       <button @click="login">Iniciar sesión</button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const login = () => {
-  if (user.value === 'admin' && password.value === '1234') {
-    router.push('/app/dashboard')
-  }
-}
-
-</script>
-
-<style scoped>
-.login-page {
+<style lang="css" scoped>
+  .login-page {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #f5f5f5;
+  background: #ececec;
 }
 
-.topbar {
-  height: 64px;
-  background: #d1d1d1;
+.top {
+  height: 60px;
+  background: #d9d9d9;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 
 .logo {
@@ -69,19 +59,18 @@ const login = () => {
   font-weight: bold;
 }
 
-.login-card {
-  margin: auto;
-  width: 360px;
+.card {
+  width: 380px;
+  margin: 80px auto;
   background: white;
   padding: 32px;
-  text-align: center;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.15);
 }
 
 .avatar {
-  width: 96px;
-  height: 96px;
+  width: 90px;
+  height: 90px;
   background: #bdbdbd;
   border-radius: 50%;
   margin: 0 auto 20px;
@@ -89,43 +78,24 @@ const login = () => {
 
 label {
   display: block;
-  text-align: left;
   margin-top: 12px;
 }
 
 input {
   width: 100%;
-  padding: 6px;
+  padding: 8px;
   margin-top: 4px;
-}
-
-.password {
-  display: flex;
-  flex-direction: column;
-}
-
-.show {
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  text-align: left;
-}
-
-.forgot {
-  display: block;
-  margin: 12px 0;
-  font-size: 13px;
 }
 
 button {
   width: 100%;
-  padding: 8px;
-  background: #e5e5e5;
-  border: none;
-  cursor: pointer;
+  margin-top: 20px;
+  padding: 10px;
 }
+
+.error {
+  color: red;
+  font-size: 13px;
+}
+
 </style>
