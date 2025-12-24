@@ -4,7 +4,7 @@ import SidebarView from '../components/SidebarView.vue'
 import TopbarView from '../components/TopbarView.vue'
 
 const isMobile = ref(false)
-const sidebarOpen = ref(true)
+const sidebarOpen = ref(false)
 
 const checkScreen = () => {
   isMobile.value = window.innerWidth < 1024
@@ -19,19 +19,19 @@ onMounted(() => {
 
 <template>
   <div class="layout">
-    <TopbarView
+    <SidebarView
       :isMobile="isMobile"
-      @toggleSidebar="sidebarOpen = !sidebarOpen"
+      :open="sidebarOpen"
+      @close="sidebarOpen = false"
     />
 
-    <div class="body">
-      <SidebarView
+    <div class="content">
+      <TopbarView
         :isMobile="isMobile"
-        :open="sidebarOpen"
-        @close="sidebarOpen = false"
+        @toggleSidebar="sidebarOpen = !sidebarOpen"
       />
 
-      <main class="content">
+      <main class="page">
         <router-view />
       </main>
     </div>
@@ -40,19 +40,21 @@ onMounted(() => {
 
 <style scoped>
 .layout {
+  display: flex;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.body {
-  flex: 1;
-  display: flex;
+  overflow: hidden;
 }
 
 .content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  flex: 1;
   padding: 24px;
-  background: #f4f6f9;
+  background: #f5f7fb;
+  overflow-y: auto;
 }
 </style>
