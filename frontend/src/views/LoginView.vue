@@ -8,13 +8,28 @@ const user = ref('')
 const pass = ref('')
 const error = ref('')
 
-const login = () => {
-  if (user.value === 'admin' && pass.value === '1234') {
+const login = async () => {
+  try {
+    const res = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: user.value,
+        password: pass.value
+      })
+    })
+
+    if (!res.ok) throw new Error()
+
+    const data = await res.json()
+    console.log(data)
+
     router.push('/app/dashboard')
-  } else {
+  } catch {
     error.value = 'Usuario o contraseña incorrectos'
   }
 }
+
 </script>
 <template>
   <div class="login-page">
