@@ -1,12 +1,18 @@
 {
-  "name": "backend",
-  "module": "index.ts",
+  "name": "inventario-backend",
+  "version": "1.0.0",
   "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
+  "scripts": {
+    "dev": "tsx src/main.ts"
   },
-  "peerDependencies": {
-    "typescript": "^5"
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.1",
+    "@elysiajs/node": "^1.4.2",
+    "elysia": "^1.4.19",
+    "mysql2": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "tsx": "^4.21.0"
   }
 }

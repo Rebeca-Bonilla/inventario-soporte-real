@@ -4,12 +4,18 @@ import TipoTabs from '../components/TipoTabs.vue'
 import EquipoForm from '../components/EquipoForm.vue'
 import type { EquipoTipo } from '../shared/equipoFields'
 
+/* ===============================
+   STATE
+================================ */
 const tipoEquipo = ref<EquipoTipo>('computadora')
 const form = ref<Record<string, any>>({})
 
+/* ===============================
+   ACCIONES
+================================ */
 const borrarTodo = () => {
   if (!confirm('¿Seguro que deseas borrar todo el formulario?')) return
-  for (const key in form) delete form[key]
+  for (const key in form.value) delete form.value[key]
 }
 
 const guardarLocal = () => {
@@ -17,31 +23,66 @@ const guardarLocal = () => {
     'registro_equipo_temp',
     JSON.stringify({
       tipo: tipoEquipo.value,
-      data: { ...form }
+      data: { ...form.value }
     })
   )
   alert('Equipo guardado localmente')
 }
 
-const anadir = () => {
-  console.log('ENVIAR A BACKEND:', {
+const anadir = async () => {
+  /* 🔴 MUY IMPORTANTE:
+     Convertimos el objeto reactivo en uno plano */
+  const data = JSON.parse(JSON.stringify(form.value))
+
+  const payload = {
     tipo: tipoEquipo.value,
-    data: { ...form }
-  })
 
-  alert('Equipo añadido (simulado)')
+    // Campos base
+    marca: data.marca,
+    modelo: data.modelo,
+    numero_serie: data.numero_serie,
+    ubicacion: data.ubicacion,
+    observaciones: data.observaciones,
 
-  for (const key in form) delete form[key]
-  localStorage.removeItem('registro_equipo_temp')
+    // Numéricos (FKs y números reales)
+    ram_gb: data.ram_gb ? Number(data.ram_gb) : null,
+    almacenamiento_gb: data.almacenamiento_gb ? Number(data.almacenamiento_gb) : null,
+    centro_trabajo_id: Number(data.centro_trabajo_id),
+    colaborador_id: data.colaborador_id ? Number(data.colaborador_id) : null,
+
+    estado: 'Activo'
+  }
+
+  try {
+    const res = await fetch('http://localhost:3000/inventory', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+
+    if (!res.ok) throw new Error()
+
+    alert('✅ Equipo guardado correctamente')
+
+    for (const key in form.value) delete form.value[key]
+    localStorage.removeItem('registro_equipo_temp')
+  } catch (e) {
+    alert('❌ No se pudo guardar el equipo')
+  }
 }
 
+/* ===============================
+   CARGAR BORRADOR
+================================ */
 onMounted(() => {
   const saved = localStorage.getItem('registro_equipo_temp')
   if (!saved) return
 
   const parsed = JSON.parse(saved)
   tipoEquipo.value = parsed.tipo
-  Object.assign(form, parsed.data)
+  Object.assign(form.value, parsed.data)
 })
 </script>
 
