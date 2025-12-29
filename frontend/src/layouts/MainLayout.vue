@@ -42,7 +42,7 @@ onMounted(() => {
 .layout {
   display: flex;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .content {
@@ -56,5 +56,6 @@ onMounted(() => {
   padding: 24px;
   background: #f5f7fb;
   overflow-y: auto;
+  overflow-x: auto;
 }
 </style>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import TipoTabs from '../components/TipoTabs.vue'
 import EquipoForm from '../components/EquipoForm.vue'
 import type { EquipoTipo } from '../shared/equipoFields'
 
 const tipoEquipo = ref<EquipoTipo>('computadora')
-const form = reactive<Record<string, any>>({})
+const form = ref<Record<string, any>>({})
 
 const borrarTodo = () => {
   if (!confirm('¿Seguro que deseas borrar todo el formulario?')) return

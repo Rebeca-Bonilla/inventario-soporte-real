@@ -22,7 +22,8 @@ const login = () => {
       <div class="logo">LOGO</div>
     </header>
 
-    <div class="card">
+    <!-- 👇 FORM -->
+    <form class="card" @submit.prevent="login">
       <div class="avatar"></div>
 
       <label>Usuario</label>
@@ -33,69 +34,106 @@ const login = () => {
 
       <span v-if="error" class="error">{{ error }}</span>
 
-      <button @click="login">Iniciar sesión</button>
-    </div>
+      <!-- 👇 type="submit" -->
+      <button type="submit">Iniciar sesión</button>
+    </form>
   </div>
 </template>
 
 <style lang="css" scoped>
-  .login-page {
-  height: 100vh;
-  background: #ececec;
+.login-page {
+  min-height: 100vh;
+  background: #f4f6f8; /* gris claro, no quema */
+  display: flex;
+  flex-direction: column;
 }
 
+/* Top suave */
 .top {
-  height: 60px;
-  background: #d9d9d9;
+  height: 64px;
+  background: #e9edf2;
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 24px;
+  border-bottom: 1px solid #dcdfe4;
 }
 
 .logo {
-  background: #bdbdbd;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 33px;
+  color: #2c2c2c;
 }
 
+/* Card central */
 .card {
   width: 380px;
-  margin: 80px auto;
-  background: white;
+  margin: auto;
+  background: #ffffff;
   padding: 32px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,.15);
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  color: #2c2c2c;
 }
 
+/* Avatar */
 .avatar {
-  width: 90px;
-  height: 90px;
-  background: #bdbdbd;
+  width: 88px;
+  height: 88px;
+  background: #e2e6eb;
   border-radius: 50%;
-  margin: 0 auto 20px;
+  margin: 0 auto 24px;
 }
 
+/* Labels */
 label {
   display: block;
-  margin-top: 12px;
+  margin-top: 14px;
+  font-size: 18px;
+  color: #555;
 }
 
+/* Inputs */
 input {
   width: 100%;
-  padding: 8px;
-  margin-top: 4px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #cfd4da;
+  background: #fafafa;
+  color: #2c2c2c;
+  font-size: 1rem;
 }
 
+input:focus {
+  outline: none;
+  border-color: #646cff;
+  background: #fff;
+}
+
+/* Botón principal */
 button {
   width: 100%;
-  margin-top: 20px;
-  padding: 10px;
+  margin-top: 24px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  background: #646cff;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
+button:hover {
+  background: #535bf2;
+}
+
+/* Error */
 .error {
-  color: red;
-  font-size: 13px;
+  display: block;
+  margin-top: 10px;
+  color: #d64545;
+  font-size: 0.9rem;
+  text-align: center;
 }
-
 </style>

@@ -28,7 +28,7 @@ const router = createRouter({
 
         // placeholders para que NO truene
       { path: 'registro', component: RegistroView },
-      { path: 'inventory', component: ConsultaView },
+      { path: 'consulta', component: ConsultaView },
       { path: 'archivados', component: ArchivadosView },
       { path: 'importacion', component: ImportacionView },
       { path: 'reportes', component: ReportesView },

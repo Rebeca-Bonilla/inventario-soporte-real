@@ -1,12 +1,8 @@
 <template>
-  <TipoTabs v-model="tipo" />
-  <EquipoForm :tipo="tipo" />
+  <div class="page">
+    <h1>Vista en construcción</h1>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import TipoTabs from '../components/TipoTabs.vue'
-import EquipoTable from '../components/EquipoForm.vue'
-
-const tipo = ref('computadora')
 </script>
