@@ -1,32 +1,43 @@
 <template>
-  <div>
+  <section>
     <h1>Dashboard</h1>
 
-    <div class="stats">
-      <StatCard title="Total Equipos" value="120" />
-      <StatCard title="Activos" value="95" />
-      <StatCard title="En Reparación" value="10" />
-      <StatCard title="Asignados" value="80" />
+    <div class="cards">
+      <div class="card">
+        <h3>Total Equipos</h3>
+        <strong>120</strong>
+      </div>
+
+      <div class="card">
+        <h3>Activos</h3>
+        <strong>95</strong>
+      </div>
+
+      <div class="card">
+        <h3>En Reparación</h3>
+        <strong>10</strong>
+      </div>
+
+      <div class="card">
+        <h3>Asignados</h3>
+        <strong>80</strong>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
-<script setup lang="ts">
-import StatCard from '../components/StatCard.vue'
-</script>
-
 <style scoped>
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-}
-.dashboard-cards {
+.cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  width: 100%;
-  margin-top: 24px;
+  gap: 16px;
 }
 
+.card h3 {
+  margin: 0 0 8px;
+}
+
+.card strong {
+  font-size: 1.5em;
+}
 </style>

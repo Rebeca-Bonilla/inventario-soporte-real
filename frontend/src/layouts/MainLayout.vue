@@ -49,6 +49,8 @@ onMounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
+  background: var(--bg-main);
+
 }
 
 .page {
@@ -58,4 +60,5 @@ onMounted(() => {
   overflow-y: auto;
   overflow-x: auto;
 }
+
 </style>

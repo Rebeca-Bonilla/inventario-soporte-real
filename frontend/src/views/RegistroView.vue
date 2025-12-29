@@ -8,7 +8,9 @@ import type { EquipoTipo } from '../shared/equipoFields'
    STATE
 ================================ */
 const tipoEquipo = ref<EquipoTipo>('computadora')
-const form = ref<Record<string, any>>({})
+const form = ref<Record<string, any>>({
+  fecha_registro: new Date().toISOString().slice(0, 10)
+})
 
 /* ===============================
    ACCIONES
@@ -29,8 +31,13 @@ const guardarLocal = () => {
   alert('Equipo guardado localmente')
 }
 
+const hoyISO = () => {
+  const d = new Date()
+  return d.toISOString().slice(0, 10)
+}
+
 const anadir = async () => {
-  /* 🔴 MUY IMPORTANTE:
+  /* MUY IMPORTANTE: 🌸🌸🌸
      Convertimos el objeto reactivo en uno plano */
   const data = JSON.parse(JSON.stringify(form.value))
 
@@ -64,12 +71,12 @@ const anadir = async () => {
 
     if (!res.ok) throw new Error()
 
-    alert('✅ Equipo guardado correctamente')
+    alert('Equipo guardado correctamente')
 
     for (const key in form.value) delete form.value[key]
     localStorage.removeItem('registro_equipo_temp')
   } catch (e) {
-    alert('❌ No se pudo guardar el equipo')
+    alert('No se pudo guardar el equipo')
   }
 }
 
@@ -78,12 +85,19 @@ const anadir = async () => {
 ================================ */
 onMounted(() => {
   const saved = localStorage.getItem('registro_equipo_temp')
-  if (!saved) return
 
-  const parsed = JSON.parse(saved)
-  tipoEquipo.value = parsed.tipo
-  Object.assign(form.value, parsed.data)
+  if (saved) {
+    const parsed = JSON.parse(saved)
+    tipoEquipo.value = parsed.tipo
+    Object.assign(form.value, parsed.data)
+  }
+
+  // 👉 fecha por default SOLO si no existe
+  if (!form.value.fecha_registro) {
+    form.value.fecha_registro = hoyISO()
+  }
 })
+
 </script>
 
 <template>
@@ -104,7 +118,7 @@ onMounted(() => {
 
         <div class="right">
           <button class="btn" @click="guardarLocal">Guardar</button>
-          <button class="btn" @click="anadir">Añadir</button>
+          <button class="btn btn-primary" @click="anadir">Añadir</button>
         </div>
       </div>
     </div>
@@ -142,4 +156,16 @@ onMounted(() => {
 .btn:hover {
   background: #d6d6d6;
 }
+
+.btn-primary {
+  background: #2563eb;        /* azul bonito */
+  border-color: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
 </style>

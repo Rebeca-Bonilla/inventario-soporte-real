@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 
+
 const props = defineProps<{
   isMobile: boolean
   open: boolean
@@ -20,6 +21,12 @@ const logout = () => router.push('/login')
 </script>
 
 <template>
+  <div
+    v-if="isMobile && open"
+    class="overlay"
+    @click="emit('close')"
+  />
+
   <aside
     class="sidebar"
     :class="{ mobile: isMobile, open }"
@@ -41,9 +48,9 @@ const logout = () => router.push('/login')
     </nav>
 
     <div class="actions">
-      <button @click="back" title="Regresar">⬅️</button>
-      <button @click="home" title="Inicio">🏠</button>
-      <button @click="logout" title="Cerrar sesión">⛔</button>
+      <button @click="back" title="Regresar">Regresar</button>
+      <button @click="home" title="Inicio">Inicio</button>
+      <button @click="logout" title="Cerrar sesión">Cerrar sesión</button>
     </div>
 
     <div class="time">
@@ -146,4 +153,12 @@ const logout = () => router.push('/login')
   color: #ef4444;
   font-weight: bold;
 }
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 40;
+}
+
 </style>

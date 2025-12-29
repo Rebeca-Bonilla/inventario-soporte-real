@@ -24,6 +24,7 @@ const emit = defineEmits<{
 
     <div v-else class="fake"></div>
   </div>
+  
 </template>
 
 <style scoped>

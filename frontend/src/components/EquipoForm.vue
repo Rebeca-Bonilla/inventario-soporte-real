@@ -40,7 +40,6 @@ const rightRows = [
 const getCampo = (side: 'left' | 'right', key: string) =>
   equipoFields[props.tipo]?.[side]?.find(f => f.key === key)
 </script>
-
 <template>
   <div class="form-wrapper">
     <div class="col">
