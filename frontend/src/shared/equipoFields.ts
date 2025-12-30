@@ -21,7 +21,8 @@ export const equipoFields: Record<
 > = {
   computadora: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
@@ -56,7 +57,8 @@ export const equipoFields: Record<
 
   monitor: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
@@ -80,7 +82,8 @@ export const equipoFields: Record<
 
   celular: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'IMEI', key: 'imei' },
@@ -105,7 +108,8 @@ export const equipoFields: Record<
 
   telefono_fijo: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
@@ -126,7 +130,8 @@ export const equipoFields: Record<
 
   camara: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
@@ -158,7 +163,8 @@ export const equipoFields: Record<
 
   tablet: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'Dimensión (pulgadas)', key: 'dimension_pulgadas', type: 'number' },
@@ -183,7 +189,8 @@ export const equipoFields: Record<
 
   terminal: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'Versión Android', key: 'version_android_terminal' }
@@ -203,7 +210,8 @@ export const equipoFields: Record<
 
   otro: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
+      {key: 'centro_trabajo_nombre', label: 'Centro de Trabajo (Nombre)', type: 'text'},
+      {key: 'centro_trabajo_id', label: 'Centro de Trabajo (ID)', type: 'number'},
       { label: 'Tipo específico', key: 'tipo_especifico' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' }

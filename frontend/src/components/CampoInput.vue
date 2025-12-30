@@ -34,8 +34,8 @@ const emit = defineEmits(['update:modelValue'])
     <input
       v-else
       :type="type || 'text'"
+      :min="type === 'number' ? 0 : undefined"
       :value="modelValue"
-      :disabled="disabled"
       @input="emit('update:modelValue', $event.target.value)"
     />
   </label>
