@@ -43,29 +43,27 @@ const getCampo = (side: 'left' | 'right', key: string) =>
 <template>
   <div class="form-wrapper">
     <div class="col">
-      <template v-for="key in leftRows" :key="key">
-        <CampoInput
-          v-if="getCampo('left', key)"
-          :label="getCampo('left', key)!.label"
-          :type="getCampo('left', key)!.type"
-          :model-value="modelValue[key]"
-          @update:modelValue="v => updateField(key, v)"
-        />
-        <CampoInput v-else label="" disabled />
-      </template>
+      <CampoInput
+        v-for="campo in equipoFields[tipo].left"
+        :key="campo.key"
+        :label="campo.label"
+        :type="campo.type"
+        :options="campo.options"
+        :model-value="modelValue[campo.key]"
+        @update:modelValue="v => updateField(campo.key, v)"
+      />
     </div>
 
     <div class="col">
-      <template v-for="key in rightRows" :key="key">
-        <CampoInput
-          v-if="getCampo('right', key)"
-          :label="getCampo('right', key)!.label"
-          :type="getCampo('right', key)!.type"
-          :model-value="modelValue[key]"
-          @update:modelValue="v => updateField(key, v)"
-        />
-        <CampoInput v-else label="" disabled />
-      </template>
+      <CampoInput
+        v-for="campo in equipoFields[tipo].right"
+        :key="campo.key"
+        :label="campo.label"
+        :type="campo.type"
+        :options="campo.options"
+        :model-value="modelValue[campo.key]"
+        @update:modelValue="v => updateField(campo.key, v)"
+      />
     </div>
   </div>
 </template>

@@ -1,54 +1,57 @@
 <script setup lang="ts">
 defineProps<{
   label: string
-  modelValue?: string
   type?: string
+  modelValue?: any
+  options?: string[]
   disabled?: boolean
 }>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+const emit = defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <div class="campo">
-    <div class="label">{{ label }}</div>
+  <label class="campo">
+    <span>{{ label }}</span>
 
+    <!-- SELECT -->
+    <select
+      v-if="type === 'select'"
+      :value="modelValue"
+      @change="emit('update:modelValue', $event.target.value)"
+    >
+      <option value="">Seleccione</option>
+      <option
+        v-for="opt in options"
+        :key="opt"
+        :value="opt"
+      >
+        {{ opt }}
+      </option>
+    </select>
+
+    <!-- INPUT -->
     <input
-      v-if="!disabled"
+      v-else
       :type="type || 'text'"
-      :value="modelValue ?? ''"
-      @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+      :value="modelValue"
+      :disabled="disabled"
+      @input="emit('update:modelValue', $event.target.value)"
     />
-
-    <div v-else class="fake"></div>
-  </div>
-  
+  </label>
 </template>
 
 <style scoped>
 .campo {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  height: 34px;
-  border-bottom: 1px solid #666;
-}
-
-.label {
-  background: #e6e6e6;
-  padding: 6px 8px;
-  border-right: 1px solid #666;
-  font-weight: 600;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px;
 }
 
 input,
-.fake {
-  padding: 6px 8px;
-  border: none;
-  background: #f3f3f3;
+select {
   font-size: 13px;
+  padding: 3px;
 }
 </style>

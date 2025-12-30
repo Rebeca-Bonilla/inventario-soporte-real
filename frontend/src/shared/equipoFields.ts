@@ -11,7 +11,8 @@ export type EquipoTipo =
 type Campo = {
   label: string
   key: string
-  type?: string
+  type?: 'text' | 'number' | 'date' | 'select'
+  options?: string[]
 }
 
 export const equipoFields: Record<
@@ -20,17 +21,33 @@ export const equipoFields: Record<
 > = {
   computadora: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
-      { label: 'RAM (GB)', key: 'ram_gb' },
-      { label: 'Almacenamiento (GB)', key: 'almacenamiento_gb' }
+      { label: 'RAM (GB)', key: 'ram_gb', type: 'number' },
+      { label: 'Almacenamiento (GB)', key: 'almacenamiento_gb', type: 'number' }
     ],
     right: [
       { label: 'Procesador', key: 'procesador' },
-      { label: 'Estado', key: 'estado' },
-      { label: 'Colaborador', key: 'colaborador_id' },
+
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: [
+          'Activo',
+          'Inactivo',
+          'En reparación',
+          'Dañado',
+          'Baja',
+          'Prestado',
+          'Reservado'
+        ]
+      },
+
+      { label: 'Colaborador (Nombre)', key: 'colaborador_nombre' },
+      { label: 'Colaborador (ID)', key: 'colaborador_id', type: 'number' },
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
@@ -39,16 +56,22 @@ export const equipoFields: Record<
 
   monitor: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
-      { label: 'Dimensión (pulgadas)', key: 'tamaño_pulgadas' },
+      { label: 'Dimensión (pulgadas)', key: 'tamaño_pulgadas', type: 'number' },
       { label: 'Puertos disponibles', key: 'puertos' }
     ],
     right: [
-      { label: 'Estado', key: 'estado' },
-      { label: 'Colaborador', key: 'colaborador_id' },
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: ['Activo', 'Inactivo', 'Baja']
+      },
+      { label: 'Colaborador (Nombre)', key: 'colaborador_nombre' },
+      { label: 'Colaborador (ID)', key: 'colaborador_id', type: 'number' },
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
@@ -57,7 +80,7 @@ export const equipoFields: Record<
 
   celular: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'IMEI', key: 'imei' },
@@ -65,8 +88,15 @@ export const equipoFields: Record<
       { label: 'Plan de datos', key: 'plan_datos' }
     ],
     right: [
-      { label: 'Estado', key: 'estado' },
-      { label: 'Colaborador', key: 'colaborador_id' },
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: ['Activo', 'Inactivo', 'Baja', 'Prestado']
+      },
+
+      { label: 'Colaborador (Nombre)', key: 'colaborador_nombre' },
+      { label: 'Colaborador (ID)', key: 'colaborador_id', type: 'number' },
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
@@ -75,14 +105,19 @@ export const equipoFields: Record<
 
   telefono_fijo: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
       { label: 'Extensión', key: 'extension' }
     ],
     right: [
-      { label: 'Estado', key: 'estado' },
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: ['Activo', 'Inactivo', 'Baja']
+      },
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
@@ -91,16 +126,30 @@ export const equipoFields: Record<
 
   camara: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'N/S', key: 'numero_serie' },
-      { label: 'Tipo de cámara', key: 'tipo_camara' },
-      { label: 'Resolución (MP)', key: 'resolucion_mp' }
+
+      {
+        label: 'Tipo de cámara',
+        key: 'tipo_camara',
+        type: 'select',
+        options: ['bala', 'domo', 'profesional', 'compacta', 'video', 'ip', 'otro']
+      },
+
+      { label: 'Resolución (MP)', key: 'resolucion_mp', type: 'number' }
     ],
     right: [
       { label: 'Dirección IP', key: 'direccion_ip_camara' },
-      { label: 'Estado', key: 'estado' },
+
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: ['Activo', 'Inactivo', 'Baja']
+      },
+
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
@@ -109,16 +158,23 @@ export const equipoFields: Record<
 
   tablet: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
-      { label: 'Dimensión (pulgadas)', key: 'dimension_pulgadas' },
-      { label: 'Capacidad (GB)', key: 'capacidad_gb' },
+      { label: 'Dimensión (pulgadas)', key: 'dimension_pulgadas', type: 'number' },
+      { label: 'Capacidad (GB)', key: 'capacidad_gb', type: 'number' },
       { label: 'Versión Android', key: 'version_android' }
     ],
     right: [
-      { label: 'Estado', key: 'estado' },
-      { label: 'Colaborador', key: 'colaborador_id' },
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: ['Activo', 'Inactivo', 'Baja', 'Prestado']
+      },
+
+      { label: 'Colaborador (Nombre)', key: 'colaborador_nombre' },
+      { label: 'Colaborador (ID)', key: 'colaborador_id', type: 'number' },
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
@@ -127,13 +183,18 @@ export const equipoFields: Record<
 
   terminal: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' },
       { label: 'Versión Android', key: 'version_android_terminal' }
     ],
     right: [
-      { label: 'Estado', key: 'estado' },
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: ['Activo', 'Inactivo', 'Baja']
+      },
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
@@ -142,14 +203,21 @@ export const equipoFields: Record<
 
   otro: {
     left: [
-      { label: 'Centro de Trabajo', key: 'centro_trabajo_id' },
+      { label: 'Centro de Trabajo', key: 'centro_trabajo_id', type: 'number' },
       { label: 'Tipo específico', key: 'tipo_especifico' },
       { label: 'Marca', key: 'marca' },
       { label: 'Modelo', key: 'modelo' }
     ],
     right: [
       { label: 'Campo extra', key: 'campo_extra' },
-      { label: 'Estado', key: 'estado' },
+
+      {
+        label: 'Estado',
+        key: 'estado',
+        type: 'select',
+        options: ['Activo', 'Inactivo', 'Baja']
+      },
+
       { label: 'Ubicación', key: 'ubicacion' },
       { label: 'Observaciones', key: 'observaciones' },
       { label: 'Fecha de registro', key: 'fecha_registro', type: 'date' }
