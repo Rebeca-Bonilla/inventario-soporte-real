@@ -1,11 +1,14 @@
 import mysql from 'mysql2/promise'
 
+// Pool de conexiones usando variables de entorno
 export const pool = mysql.createPool({
-  host: 'localhost',
-  port: 3307,
-  user: 'root',
-  password: '', // contraseña vacía confirmada
-  database: 'Inventario_prueba',
+  host: process.env.DB_HOST || 'localhost',
+  port: Number(process.env.DB_PORT) || 3306,
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'Inventario_prueba',
+
   waitForConnections: true,
-  connectionLimit: 10
+  connectionLimit: 10,
+  queueLimit: 0
 })
