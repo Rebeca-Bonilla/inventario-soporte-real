@@ -1,48 +1,128 @@
-# Inventario-Soporte-Real
+# 📦 Inventario de Soporte Técnico
 
-This template should help get you started developing with Vue 3 in Vite.
+Sistema web de **gestión de inventario de equipos de TI**, enfocado en soporte técnico, control de activos y trazabilidad de cambios.
 
-## Recommended IDE Setup
+El sistema permite **registrar, consultar, editar, archivar e importar equipos**, manteniendo un **historial de cambios**, control de permisos por rol y manejo de sesiones con tiempo límite.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## 🚀 Funcionalidades Principales
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### 🔐 Autenticación
+- Inicio de sesión con validaciones
+- Manejo de sesión con **timeout por inactividad (30 min)**
+- Roles de usuario (admin / usuario estándar)
 
-## Type Support for `.vue` Imports in TS
+### 🏠 Dashboard
+- Resumen general del inventario
+- Equipos próximos a eventos importantes (ej. antivirus por expirar)
+- Acceso rápido a los módulos principales
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### 📝 Registro de Equipos
+Tipos de equipo:
+- Cómputo
+- Teléfonos
+- Monitores
+- Cámaras
+- Tablets
+- Terminales
+- Otros
 
-## Customize configuration
+Acciones:
+- Guardar localmente (cache / localStorage)
+- Añadir a base de datos
+- Borrar formulario (con confirmación)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### 🔍 Consulta
+- Visualización del inventario actualizado
+- Filtros avanzados (estilo Excel)
+- Exportación de datos
+- Edición de registros
+- Archivado de equipos *(solo administradores)*
 
-## Project Setup
+### 🗄️ Archivados
+- Visualización de equipos archivados
+- Filtros por campos
+- Acceso restringido por rol
 
-```sh
+### 📥 Importación
+- Importación desde archivos **CSV / XLSX**
+- Validación de campos
+- Detección de registros duplicados
+- Vista previa editable antes de confirmar inserción
+
+### 📊 Reportes
+- Generación de reportes
+- Exportación en formatos:
+  - PDF
+  - CSV
+  - XLSX
+
+### 🕒 Historial
+- Registro de cambios del sistema
+- Usuario responsable
+- Fecha y hora de cada acción
+
+---
+
+## 🧱 Arquitectura del Proyecto
+
+-inventario-soporte-real/
+├── backend/ # API y lógica del servidor
+├── frontend/ # Aplicación web (Vue 3)
+├── public/ # Recursos estáticos
+├── README.md
+└── configuraciones
+
+
+### 🖥️ Frontend
+- Vue 3
+- Vite
+- TypeScript
+- Componentes reutilizables
+- Enrutamiento por vistas
+
+### 🛠️ Backend
+- Node.js
+- API REST
+- Base de datos relacional
+- Control de roles y permisos
+- Historial de acciones
+
+---
+
+## ⚙️ Instalación y Ejecución
+
+### Requisitos
+- Node.js 18+
+- npm
+- MySQL / MariaDB
+
+### Clonar repositorio
+```bash
+git clone https://github.com/Rebeca-Bonilla/inventario-soporte-real.git
+cd inventario-soporte-real
+---
+
+### Inicio de Backend
+cd backend
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
 
-```sh
-npm run build
-```
+### Inicio de Frontend
+cd frontend
+npm install
+npm run dev
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+##Variables de entorno (.env)
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=inventario_prueba
+DB_USER=inventario_app
+DB_PASSWORD=********
 
-```sh
-npm run test:unit
-```
+
+
+
