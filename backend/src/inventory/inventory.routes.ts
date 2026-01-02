@@ -4,6 +4,51 @@ import { pool } from '../shared/db/database'
 export const inventoryRoutes = new Elysia({
   prefix: '/inventory'
 })
+/* ======================================================
+   INVENTARIO (LISTADO REAL)
+====================================================== */
+.get('/', async () => {
+  const [rows]: any = await pool.query(`
+    SELECT
+      id,
+      tipo,
+      etiqueta_inventario,
+      marca,
+      modelo,
+      numero_serie,
+      estado,
+      en_uso,
+      ubicacion,
+      procesador,
+      ram_gb,
+      almacenamiento_gb,
+      sistema_operativo,
+      numero_telefono,
+      imei,
+      extension,
+      plan_datos,
+      tamaño_pulgadas,
+      resolucion,
+      puertos,
+      tipo_camara,
+      resolucion_mp,
+      direccion_ip_camara,
+      dimension_pulgadas,
+      capacidad_gb,
+      version_android,
+      version_android_terminal,
+      tipo_especifico,
+      campo_extra,
+      observaciones,
+      colaborador_nombre,
+      centro_trabajo_nombre,
+      usuario_registro_nombre,
+      fecha_registro
+    FROM vista_equipos_activos
+    ORDER BY fecha_registro DESC
+  `)
+  return rows
+})
 
 /* ======================================================
    COLABORADORES
@@ -59,16 +104,17 @@ export const inventoryRoutes = new Elysia({
 
   const [rows]: any = await pool.query(
     `
-    SELECT id, nombre_completo
+    SELECT id, nombre_completo, activo
     FROM colaboradores
     WHERE id = ?
-      AND activo = 1
     LIMIT 1
     `,
     [id]
   )
 
-  if (!rows.length) {
+  console.log('📦 QUERY RESULT:', rows)
+
+  if (!rows.length || rows[0].activo !== 1) {
     set.status = 404
     return { message: 'Colaborador no encontrado' }
   }
@@ -78,6 +124,7 @@ export const inventoryRoutes = new Elysia({
     nombre: rows[0].nombre_completo
   }
 })
+
 
 /* ======================================================
    CENTROS DE TRABAJO

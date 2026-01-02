@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-
+import { useTheme } from '../shared/theme'
+const { theme, toggleTheme } = useTheme()
 
 const props = defineProps<{
   isMobile: boolean
@@ -47,24 +48,38 @@ const logout = () => router.push('/login')
       <button @click="go('/app/historial')">Historial</button>
     </nav>
 
+    <div class="time">
+      Tiempo: 00:00<br />
+      Límite: 30:00
+    </div>
+
     <div class="actions">
       <button @click="back" title="Regresar">Regresar</button>
       <button @click="home" title="Inicio">Inicio</button>
       <button @click="logout" title="Cerrar sesión">Cerrar sesión</button>
     </div>
+    <!-- 🌙 THEME SWITCH -->
+    <div class="theme-switch">
+      <span>{{ theme === 'dark' ? '🌙' : '☀️' }}</span>
 
-    <div class="time">
-      Tiempo: 00:00<br />
-      Límite: 30:00
+      <label class="switch">
+        <input
+          type="checkbox"
+          :checked="theme === 'dark'"
+          @change="toggleTheme"
+        />
+        <span class="slider"></span>
+      </label>
     </div>
+
   </aside>
 </template>
 
 <style scoped>
 .sidebar {
   width: 260px;
-  background: linear-gradient(180deg, #020617, #020617);
-  color: #e5e7eb;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -160,5 +175,56 @@ const logout = () => router.push('/login')
   background: rgba(0, 0, 0, 0.35);
   z-index: 40;
 }
+
+/* 🌙 THEME SWITCH */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.switch {
+  position: relative;
+  width: 42px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background-color: #334155;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.25s;
+}
+
+input:checked + .slider {
+  background-color: #6366f1;
+}
+
+input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
 
 </style>

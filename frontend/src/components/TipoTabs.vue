@@ -3,6 +3,7 @@ const props = defineProps<{ modelValue: string }>()
 const emit = defineEmits(['update:modelValue'])
 
 const tipos = [
+  { label: 'todos', value: 'todos' },
   { label: 'computadora', value: 'computadora' },
   { label: 'telefono', value: 'telefono_fijo' },
   { label: 'monitor', value: 'monitor' },
@@ -10,6 +11,7 @@ const tipos = [
   { label: 'tablet', value: 'tablet' },
   { label: 'terminal', value: 'terminal' },
   { label: 'otro', value: 'otro' }
+
 ]
 </script>
 
@@ -30,20 +32,31 @@ const tipos = [
 <style scoped>
 .tabs {
   display: flex;
-  gap: 6px;
-  margin-bottom: 4px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .tab {
-  padding: 4px 10px;
-  border: 1px solid #666;
-  background: #e6e6e6;
+  padding: 6px 12px;
+  border-radius: 4px;
   font-size: 13px;
   cursor: pointer;
+
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--input-border);
+
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .tab.active {
-  background: #9e9e9e;
-  font-weight: bold;
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
 }
+
+.tab:hover {
+  background-color: #1e293b;
+}
+
 </style>

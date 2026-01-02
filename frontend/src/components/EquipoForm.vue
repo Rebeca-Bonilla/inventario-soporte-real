@@ -79,4 +79,29 @@ const getCampo = (side: 'left' | 'right', key: string) =>
   display: flex;
   flex-direction: column;
 }
+input,
+select,
+textarea {
+  background-color: #020617;
+  color: #e5e7eb;
+
+  border: 1px solid #334155;
+  border-radius: 4px;
+
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
 </style>

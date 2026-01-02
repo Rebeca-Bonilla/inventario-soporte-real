@@ -56,7 +56,7 @@ onMounted(() => {
 .page {
   flex: 1;
   padding: 24px;
-  background: #f5f7fb;
+  background-color: var(--content-bg);
   overflow-y: auto;
   overflow-x: auto;
 }

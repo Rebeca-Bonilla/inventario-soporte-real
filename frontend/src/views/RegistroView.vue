@@ -206,7 +206,7 @@ onMounted(() => {
       Los campos de texto deben escribirse en <strong>MAYÚSCULAS</strong>,
       sin acentos y usando espacios.
       Para <strong>Centro de Trabajo</strong> y <strong>Colaborador</strong>,
-      puede ingresar el <strong>ID</strong>, <strong>código</strong> o
+      puede ingresar el <strong>ID</strong>, o
       <strong>nombre</strong>.
     </p>
 
@@ -229,11 +229,12 @@ onMounted(() => {
 <style scoped>
 .registro-page {
   padding: 20px 24px;
+  background-color: var(--content-bg);
 }
 
 .leyenda {
   font-size: 14px;
-  color: red;
+  color: #dc2626; /* error text stays red in both modes */
   margin: 10px 0 14px;
 }
 
@@ -254,17 +255,25 @@ onMounted(() => {
   gap: 6px;
 }
 
+/* THEME-SAFE BUTTONS */
 .btn {
   padding: 4px 12px;
-  border: 1px solid #666;
-  background: #e0e0e0;
+  border: 1px solid var(--input-border);
+  background: var(--button-bg);
+  color: var(--button-text);
   font-size: 13px;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .btn-primary {
   background: #2563eb;
   border-color: #2563eb;
-  color: white;
+  color: #ffffff;
 }
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
 </style>
