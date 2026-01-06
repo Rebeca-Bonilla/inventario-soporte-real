@@ -4,189 +4,37 @@ import { pool } from '../shared/db/database'
 export const inventoryRoutes = new Elysia({
   prefix: '/inventory'
 })
+
 /* ======================================================
    INVENTARIO (LISTADO REAL)
 ====================================================== */
 .get('/', async () => {
   const [rows]: any = await pool.query(`
-    SELECT
-      id,
-      tipo,
-      etiqueta_inventario,
-      marca,
-      modelo,
-      numero_serie,
-      estado,
-      en_uso,
-      ubicacion,
-      procesador,
-      ram_gb,
-      almacenamiento_gb,
-      sistema_operativo,
-      numero_telefono,
-      imei,
-      extension,
-      plan_datos,
-      tamaño_pulgadas,
-      resolucion,
-      puertos,
-      tipo_camara,
-      resolucion_mp,
-      direccion_ip_camara,
-      dimension_pulgadas,
-      capacidad_gb,
-      version_android,
-      version_android_terminal,
-      tipo_especifico,
-      campo_extra,
-      observaciones,
-      colaborador_nombre,
-      centro_trabajo_nombre,
-      usuario_registro_nombre,
-      fecha_registro
+    SELECT *
     FROM vista_equipos_activos
     ORDER BY fecha_registro DESC
   `)
+
   return rows
 })
 
 /* ======================================================
-   COLABORADORES
+   HISTORIAL
 ====================================================== */
+.get('/historial', async () => {
+  const [rows]: any = await pool.query(`
+    SELECT
+      id,
+      cambio_realizado AS cambio,
+      usuario,
+      DATE_FORMAT(fecha, '%d-%m-%y') AS fecha,
+      TIME_FORMAT(hora, '%H:%i:%s') AS hora
+    FROM historial
+    ORDER BY id DESC
+    LIMIT 100
+  `)
 
-// buscar por nombre normalizado
-.get('/colaboradores/buscar', async ({ query, set }) => {
-  const nombre = query.nombre as string
-
-  if (!nombre) {
-    set.status = 400
-    return { message: 'Nombre requerido' }
-  }
-
-  const [rows]: any = await pool.query(
-    `
-    SELECT id
-    FROM colaboradores
-    WHERE
-      UPPER(
-        REPLACE(
-          REPLACE(
-            REPLACE(
-              REPLACE(
-                REPLACE(nombre_completo,'Á','A'),
-              'É','E'),
-            'Í','I'),
-          'Ó','O'),
-        'Ú','U')
-      ) = ?
-      AND activo = 1
-    LIMIT 1
-    `,
-    [nombre]
-  )
-
-  if (!rows.length) {
-    set.status = 404
-    return { message: 'Colaborador no encontrado' }
-  }
-
-  return { id: rows[0].id }
-})
-
-// obtener por id
-.get('/colaboradores/:id', async ({ params, set }) => {
-  const id = Number(params.id)
-
-  if (!id) {
-    set.status = 400
-    return { message: 'ID inválido' }
-  }
-
-  const [rows]: any = await pool.query(
-    `
-    SELECT id, nombre_completo, activo
-    FROM colaboradores
-    WHERE id = ?
-    LIMIT 1
-    `,
-    [id]
-  )
-
-  console.log('📦 QUERY RESULT:', rows)
-
-  if (!rows.length || rows[0].activo !== 1) {
-    set.status = 404
-    return { message: 'Colaborador no encontrado' }
-  }
-
-  return {
-    id: rows[0].id,
-    nombre: rows[0].nombre_completo
-  }
-})
-
-
-/* ======================================================
-   CENTROS DE TRABAJO
-====================================================== */
-
-// buscar por nombre
-.get('/centros-trabajo/buscar', async ({ query, set }) => {
-  const nombre = query.nombre as string
-
-  if (!nombre) {
-    set.status = 400
-    return { message: 'Nombre requerido' }
-  }
-
-  const [rows]: any = await pool.query(
-    `
-    SELECT id
-    FROM centros_trabajo
-    WHERE UPPER(nombre) = ?
-      AND activo = 1
-    LIMIT 1
-    `,
-    [nombre]
-  )
-
-  if (!rows.length) {
-    set.status = 404
-    return { message: 'Centro de trabajo no encontrado' }
-  }
-
-  return { id: rows[0].id }
-})
-
-// obtener por id
-.get('/centros-trabajo/:id', async ({ params, set }) => {
-  const id = Number(params.id)
-
-  if (!id) {
-    set.status = 400
-    return { message: 'ID inválido' }
-  }
-
-  const [rows]: any = await pool.query(
-    `
-    SELECT id, nombre
-    FROM centros_trabajo
-    WHERE id = ?
-      AND activo = 1
-    LIMIT 1
-    `,
-    [id]
-  )
-
-  if (!rows.length) {
-    set.status = 404
-    return { message: 'Centro de trabajo no encontrado' }
-  }
-
-  return {
-    id: rows[0].id,
-    nombre: rows[0].nombre
-  }
+  return rows
 })
 
 /* ======================================================
@@ -200,7 +48,7 @@ export const inventoryRoutes = new Elysia({
     return { message: 'Faltan campos obligatorios' }
   }
 
-  const [result] = await pool.query(
+  const [result]: any = await pool.query(
     `
     INSERT INTO equipos (
       tipo,
@@ -235,6 +83,6 @@ export const inventoryRoutes = new Elysia({
 
   return {
     ok: true,
-    id: (result as any).insertId
+    id: result.insertId
   }
 })

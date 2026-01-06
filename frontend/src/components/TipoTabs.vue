@@ -39,7 +39,7 @@ const tipos = [
 .tab {
   padding: 6px 12px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
 
   background-color: var(--button-bg);
